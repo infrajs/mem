@@ -1,0 +1,12 @@
+{
+	"name": "infrajs/mem",
+	"description": "Simple API for work with filecache or memcache",
+	"license": "GPL3",
+	"autoload": {
+		"psr-4": { "infrajs\\mem\\": "/" }
+	},
+	"require":{
+		"infrajs/ans":"~1",
+		"infrajs/path":"~1"
+	}
+}
