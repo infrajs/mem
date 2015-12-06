@@ -2,6 +2,6 @@
 namespace infrajs\mem;
 use infrajs\infra\Config;
 
-$conf=Config::get('mem');
+$conf=Infra::config('mem');
 
 Mem::$conf=array_merge(Mem::$conf, $conf);
