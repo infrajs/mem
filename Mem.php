@@ -13,11 +13,10 @@ class Mem {
 		} else {
 			$conf = static::$conf;
 			$key = Path::encode($key);
-			$dir = $conf['cache'];
 			
-			$dir = Path::theme($dir);
-			if(!$dir) throw new \Exception('Not found '.$dir);
-
+			$dir = Path::theme($conf['cache']);
+			if(!$dir) throw new \Exception('Not found '.$conf['cache']);
+			if(!Path::$conf['fs']) throw new \Exception('Filesystem protected by Path::$conf[fs]=false set it on true');
 			$v = serialize($val);
 			file_put_contents($dir.$key.'.ser', $v);
 		}
@@ -30,9 +29,8 @@ class Mem {
 		} else {
 			$conf = static::$conf;
 			$key = Path::encode($key);
-			$dir = $conf['cache'];
 
-			$dir = Path::theme($dir);
+			$dir = Path::theme($conf['cache']);
 
 			if ($dir&&is_file($dir.$key.'.ser')) {
 				$r = file_get_contents($dir.$key.'.ser');
@@ -55,8 +53,8 @@ class Mem {
 			$key = Path::encode($key);
 			
 			$dir = Path::theme($conf['cache']);
-			if(!$dir)die('Not found '.$conf['cache']);
-
+			if (!$dir) throw new \Exception('Not found '.$conf['cache']);
+			if (!Path::$conf['fs']) throw new \Exception('Filesystem protected by Path::$conf[fs]=false set it on true');
 			$r = @unlink($dir.$key.'.ser');
 		}
 
@@ -68,9 +66,14 @@ class Mem {
 		if ($mem) {
 			$mem->flush();
 		} else {
-			$dir = static::$conf['dir'];
-			foreach (glob($dir.'*.*') as $filename) {
-				@unlink($filename);
+			$conf = static::$conf;
+			if (!$conf['cache']) throw new \Exception('Set up cache folder Mem::$conf[cache]');
+			$dir = Path::theme($conf['cache']);
+			if ($dir) {
+				if (!Path::$conf['fs']) throw new \Exception('Filesystem protected by Path::$conf[fs]=false set it on true');
+				foreach (glob($dir.'*.*') as $filename) {
+					@unlink($filename);
+				}
 			}
 		}
 	}

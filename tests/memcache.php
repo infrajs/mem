@@ -3,13 +3,14 @@ namespace infrajs\mem;
 use infrajs\mem\Mem;
 use infrajs\ans\Ans;
 
-require_once('../../../../vendor/autoload.php');
+if (!is_file('vendor/autoload.php')) chdir('../../../../');
+require_once('vendor/autoload.php');
 
 $ans = array();
 $ans['title'] = 'Проверка доступности сервера';
 
 $conf = Mem::$conf;
-if ($conf['cache'] != 'mem') return Ans::err($ans, 'memcache не используется');
+if ($conf['type'] != 'mem') return Ans::err($ans, 'memcache не используется');
 
 if (!class_exists('Memcache')) return Ans::err($ans, 'Нет класса Memcache');
 
