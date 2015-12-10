@@ -8,7 +8,7 @@ $conf=&Infra::config('mem');
 Mem::$conf=array_merge(Mem::$conf, $conf);
 $conf=Mem::$conf;
 
-Event::wheng('update', function () {
+Event::handler('install', function () {
 	Path::mkdir(Mem::$conf['cache']);
 });
 
