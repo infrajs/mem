@@ -8,7 +8,7 @@ $conf=&Infra::config('mem');
 Mem::$conf=array_merge(Mem::$conf, $conf);
 $conf=Mem::$conf;
 
-Event::handler('install', function () {
+Event::handler('oninstall', function () {
 	Path::mkdir(Mem::$conf['cache']);
 });
 

@@ -10,12 +10,17 @@ $ans = array();
 $ans['title'] = 'Проверка доступности сервера';
 
 $conf = Mem::$conf;
-if ($conf['type'] != 'mem') return Ans::err($ans, 'memcache не используется');
+if ($conf['type'] != 'mem') {
+	$ans['class']="bg-warning";
+	return Ans::err($ans, 'memcache не используется config.mem.mem');
+}
 
 if (!class_exists('Memcache')) return Ans::err($ans, 'Нет класса Memcache');
 
 $mem = Mem::memcache();
-if (!$mem) return Ans::err('Сервер не доступен');
+if (!$mem) {
+	return Ans::err($ans, 'Сервер не доступен');
+}
 	
 $val = infra_mem_get('test');
 if (!$val) {
