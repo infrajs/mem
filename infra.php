@@ -10,5 +10,5 @@ $conf=Mem::$conf;
 
 Event::handler('oninstall', function () {
 	Path::mkdir(Mem::$conf['cache']);
-});
+},'mem');
 
