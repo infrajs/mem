@@ -101,5 +101,5 @@ Mem::$conf = array(
 		'host' => 'localhost',
 		'port' => 23
 	), 
-	'cache' => Path::resolve('|mem/')
+	'cache' => Path::resolve('!mem/')
 );

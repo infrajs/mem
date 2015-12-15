@@ -1,6 +1,7 @@
 {
 	"mem":{
-		"require":"*mem/infra.php",
+		"require":"-mem/infra.php",
+		"tester":"-mem/tests/",
 		"type":"fs", //mem fs
 		"memcache":{
 			"host":"127.0.0.1",
