@@ -13,12 +13,11 @@ class Mem {
 		} else {
 			$conf = static::$conf;
 			$key = Path::encode($key);
-			$dir = $conf['cache'];
 			if(!Path::$conf['fs']) throw new \Exception('Filesystem protected by Path::$conf[fs]=false set it on true');
 			$v = serialize($val);
 			
-			$r=file_put_contents($dir.$key.'.ser', $v);
-			if(!$r)throw new \Exception('Обращение к mem до infra oninstall. Отстуствует папка или нет доступа к файловой системе. В событии oninstall нужно указать ключ mem для правильной последовательсности.');
+			$r=file_put_contents(static::$conf['cache'].$key.'.ser', $v);
+			if(!$r)throw new \Exception('Отстуствует папка или нет доступа к файловой системе. При работе с infra в событии oninstall нужно указать ключ mem для правильной последовательсности.');
 			
 		}
 	}
