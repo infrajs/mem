@@ -56,8 +56,14 @@ class Mem {
 			$key = Path::encode($key);
 			
 			$dir = Path::theme($conf['cache']);
-			if (!$dir) throw new \Exception('Not found '.$conf['cache']);
-			if (!Path::$conf['fs']) throw new \Exception('Filesystem protected by Path::$conf[fs]=false set it on true');
+			if (!$dir) {
+				echo '<pre>';
+				throw new \Exception('Not found dir for cache "'.$conf['cache'].'"');
+			}
+			if (!Path::$conf['fs']) {
+				echo '<pre>';
+				throw new \Exception('Filesystem protected by Path::$conf[fs]=false set it on true');
+			}
 			$r = @unlink($dir.$key.'.ser');
 		}
 

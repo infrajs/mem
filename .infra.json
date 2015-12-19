@@ -1,11 +1,9 @@
 {
-	"mem":{
-		"require":"-mem/infra.php",
-		"tester":"-mem/tests/",
-		"type":"fs", //mem fs
-		"memcache":{
-			"host":"127.0.0.1",
-			"port":"11211"
-		}
+	"require":"infra.php",
+	"tester":"tests/",
+	"type":"fs", //mem fs
+	"memcache":{
+		"host":"127.0.0.1",
+		"port":"11211"
 	}
 }
