@@ -1,5 +1,6 @@
 {
-	"require":"infra.php",
+	"conf":"infrajs\\mem\\Mem",
+	"install":"install.php",
 	"tester":"tests/",
 	"type":"fs", //mem fs
 	"memcache":{

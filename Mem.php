@@ -19,7 +19,7 @@ class Mem {
 			$r=file_put_contents(static::$conf['cache'].$key.'.ser', $v);
 			if(!$r){
 				echo '<pre>';
-				throw new \Exception('Отстуствует папка или нет доступа к файловой системе. При работе с infra в событии oninstall нужно указать ключ mem для правильной последовательсности.');
+				throw new \Exception('Отстуствует папка или нет доступа к файловой системе.');
 			}
 			
 		}
