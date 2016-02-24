@@ -12,7 +12,7 @@ $ans['title'] = 'Проверка доступности сервера';
 $conf = Mem::$conf;
 if ($conf['type'] != 'mem') {
 	$ans['class']="bg-warning";
-	return Ans::err($ans, 'memcache не используется config.mem.mem');
+	return Ans::ret($ans, 'memcache не используется config.mem.mem');
 }
 
 if (!class_exists('Memcache')) return Ans::err($ans, 'Нет класса Memcache');

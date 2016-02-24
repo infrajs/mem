@@ -2,6 +2,7 @@
 namespace infrajs\mem;
 use infrajs\once\Once;
 use infrajs\path\Path;
+
 class Mem {
 	public static $conf = array();
 	public static function set($key, $val)
