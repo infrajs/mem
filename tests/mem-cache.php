@@ -21,11 +21,9 @@ $mem = Mem::memcache();
 if (!$mem) {
 	return Ans::err($ans, 'Сервер не доступен');
 }
-	
+
+infra_mem_set('test', true);
 $val = infra_mem_get('test');
-if (!$val) {
-	infra_mem_set('test', true);
-	return Ans::err($ans, 'Неудалось восстановить значение. Требуется F5');
-}
+if (!$val) return Ans::err($ans, 'Неудалось восстановить значение. Требуется F5');
 
 return Ans::ret($ans, 'сервер доступен');

@@ -17,9 +17,9 @@ if ($conf['type'] != 'fs') {
 	return Ans::err($ans, 'Mem не настроен на файловую систему');
 }
 
+Mem::set('test', true);
 $val = Mem::get('test');
 if (!$val) {
-	Mem::set('test', true);
 	return Ans::err($ans, 'Неудалось восстановить значение. Требуется F5');
 }
 

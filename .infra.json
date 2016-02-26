@@ -1,6 +1,7 @@
 {
 	"conf":"infrajs\\mem\\Mem",
-	"install":"install.php",
+	"update":"update.php",
+	"dependencies":"path",
 	"tester":"tests/",
 	"type":"fs", //mem fs
 	"memcache":{
