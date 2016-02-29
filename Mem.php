@@ -55,7 +55,6 @@ class Mem {
 		} else {
 			$conf = static::$conf;
 			$key = Path::encode($key);
-			
 			$dir = Path::theme($conf['cache']);
 			if (!$dir) {
 				echo '<pre>';
