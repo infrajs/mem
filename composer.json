@@ -1,5 +1,6 @@
 {
 	"name": "infrajs/mem",
+	"homepage":"https://github.com/infrajs/mem",
 	"description": "Simple API for work with filecache or memcache",
 	"license": "GPL3",
 	"autoload": {
