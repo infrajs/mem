@@ -3,7 +3,7 @@
 	"update":"update.php",
 	"dependencies":"path",
 	"tester":"tests/",
-	"type":"fs", //mem fs
+	"type":"fs",
 	"memcache":{
 		"host":"127.0.0.1",
 		"port":"11211"
