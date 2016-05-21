@@ -95,7 +95,7 @@ class Mem {
 			if (!class_exists('Memcache')) return false;
 			if (!$conf['memcache']) return false;
 			
-			$infra_mem = new Memcache();
+			$infra_mem = new \Memcache();
 			$infra_mem->connect($conf['memcache']['host'], $conf['memcache']['port']) or die('Could not connect');
 
 			return $infra_mem;
