@@ -14,7 +14,8 @@ $ans['title'] = 'Проверка кэша';
 
 $conf = Mem::$conf;
 if ($conf['type'] != 'fs') {
-	return Ans::err($ans, 'Mem не настроен на файловую систему');
+	$ans['class']="bg-warning";
+	return Ans::ret($ans, 'Mem не настроен на файловую систему');
 }
 
 Mem::set('test', true);
