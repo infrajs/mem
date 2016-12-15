@@ -57,8 +57,9 @@ class Mem {
 			$key = Path::encode($key);
 			$dir = Path::theme($conf['cache']);
 			if (!$dir) {
-				echo '<pre>';
-				throw new \Exception('Not found dir for cache "'.$conf['cache'].'"');
+				return;
+				//echo '<pre>';
+				//throw new \Exception('Not found dir for cache "'.$conf['cache'].'"');
 			}
 			if (!Path::$conf['fs']) {
 				echo '<pre>';
@@ -66,6 +67,9 @@ class Mem {
 			}
 			$r = @unlink($dir.$key.'.ser');
 		}
+
+		return $r;
+	}
 
 		return $r;
 	}
