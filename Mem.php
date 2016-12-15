@@ -70,9 +70,6 @@ class Mem {
 
 		return $r;
 	}
-
-		return $r;
-	}
 	public static function flush()
 	{
 		$mem = &static::memcache();
