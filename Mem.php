@@ -5,16 +5,23 @@ use infrajs\path\Path;
 
 class Mem {
 	public static $conf = array();
+	public static function memprefix() {
+		return Once::exec(__FILE__, function () {
+			$str = md5(__DIR__);
+			$str = substr($str,0,5);
+			return $str;
+		});
+	}
 	public static function set($key, $val)
 	{
 		$mem = &static::memcache();
 		if ($mem) {
-			$mem->delete($key);
-			$mem->set($key, $val);
+			$mem->delete(static::memprefix().$key);
+			$mem->set(static::memprefix().$key, $val);
 		} else {
 			$conf = static::$conf;
 			$key = Path::encode($key);
-			if(!Path::$conf['fs']) throw new \Exception('Filesystem protected by Path::$conf[fs]=false set it on true');
+			if (!Path::$conf['fs']) throw new \Exception('Filesystem protected by Path::$conf[fs]=false set it on true');
 			$v = serialize($val);
 			
 			$r=file_put_contents(static::$conf['cache'].$key.'.ser', $v);
@@ -29,7 +36,7 @@ class Mem {
 	{
 		$mem = &static::memcache();
 		if ($mem) {
-			$r = $mem->get($key);
+			$r = $mem->get(static::memprefix().$key);
 		} else {
 			$conf = static::$conf;
 			$key = Path::encode($key);
@@ -51,7 +58,7 @@ class Mem {
 		$conf = static::$conf;
 		$mem = &static::memcache();
 		if ($mem) {
-			$r = $mem->delete($key);
+			$r = $mem->delete(static::memprefix().$key);
 		} else {
 			$conf = static::$conf;
 			$key = Path::encode($key);
