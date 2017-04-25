@@ -72,7 +72,11 @@ class Mem {
 				echo '<pre>';
 				throw new \Exception('Filesystem protected by Path::$conf[fs]=false set it on true');
 			}
-			$r = @unlink($dir.$key.'.ser');
+			if (is_file($dir.$key.'.ser')) {
+				$r = unlink($dir.$key.'.ser');
+			} else {
+				$r = true;
+			}
 		}
 
 		return $r;
