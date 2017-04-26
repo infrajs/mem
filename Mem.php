@@ -12,12 +12,13 @@ class Mem {
 			return $str;
 		});
 	}
-	public static function set($key, $val)
+	public static function set($key, $val, $savetofile = false)
 	{
-		$mem = &static::memcache();
-		if ($mem) {
+		if (!$savetofile) $mem = &static::memcache();
+		if (!$savetofile && $mem) {
 			$mem->delete(static::memprefix().$key);
-			$mem->set(static::memprefix().$key, $val);
+			$r = $mem->set(static::memprefix().$key, $val);
+			if (!$r) error_log('Слишком большой объём данных для хранения в memcache '.$key);
 		} else {
 			$conf = static::$conf;
 			$key = Path::encode($key);
@@ -32,10 +33,10 @@ class Mem {
 			
 		}
 	}
-	public static function get($key)
+	public static function get($key, $savetofile = false)
 	{
-		$mem = &static::memcache();
-		if ($mem) {
+		if (!$savetofile) $mem = &static::memcache();
+		if (!$savetofile && $mem) {
 			$r = $mem->get(static::memprefix().$key);
 		} else {
 			$conf = static::$conf;
