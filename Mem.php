@@ -22,15 +22,11 @@ class Mem {
 		} else {
 			$conf = static::$conf;
 			$key = Path::encode($key);
-			if (!Path::$conf['fs']) throw new \Exception('Filesystem protected by Path::$conf[fs]=false set it on true');
+			if (!Path::$conf['fs']) die('Filesystem protected by Path::$conf[fs]=false set it on true');
 			$v = serialize($val);
 			
 			$r=file_put_contents(static::$conf['cache'].$key.'.ser', $v);
-			if(!$r){
-				echo '<pre>';
-				throw new \Exception('Отстуствует папка или нет доступа к файловой системе.');
-			}
-			
+			if(!$r) die('Отстуствует папка или нет доступа к файловой системе.');
 		}
 	}
 	public static function get($key, $savetofile = false)
