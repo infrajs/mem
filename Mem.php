@@ -23,10 +23,14 @@ class Mem {
 			$conf = static::$conf;
 			$key = Path::encode($key);
 			if (!Path::$conf['fs']) die('Filesystem protected by Path::$conf[fs]=false set it on true');
-			$v = serialize($val);
-			
-			$r=file_put_contents(static::$conf['cache'].$key.'.ser', $v);
-			if(!$r) die('Отстуствует папка или нет доступа к файловой системе.');
+			//$v = serialize($val);
+			$v = json_encode($val, JSON_UNESCAPED_UNICODE);
+			$r = file_put_contents(Mem::$conf['cache'].$key.'.json', $v);
+			if (!$r) {
+				echo '<pre>';
+				debug_print_backtrace();
+				die('Отстуствует папка или нет доступа к файловой системе.');
+			}
 		}
 	}
 	public static function get($key, $savetofile = false)
@@ -39,10 +43,10 @@ class Mem {
 			$key = Path::encode($key);
 
 			$dir = Path::theme($conf['cache']);
-
-			if ($dir&&is_file($dir.$key.'.ser')) {
-				$r = file_get_contents($dir.$key.'.ser');
-				$r = unserialize($r);
+			if ($dir && is_file($dir.$key.'.json')) {
+				$r = file_get_contents($dir.$key.'.json');
+				//$r = unserialize($r);
+				$r = json_decode($r, true);
 			} else {
 				$r = null;
 			}
