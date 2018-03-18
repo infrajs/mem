@@ -6,7 +6,7 @@ class Mem {
 	public static $conf = array();
 	public static $pref = false;
 	public static function memprefix() {
-		if (Mem::$pref) return $pref;
+		if (Mem::$pref) return Mem::$pref;
 		$str = md5(__DIR__);
 		$str = substr($str,0,5);
 		Mem::$pref = $str;
