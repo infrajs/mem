@@ -1,16 +1,16 @@
 <?php
 namespace infrajs\mem;
-use infrajs\once\Once;
 use infrajs\path\Path;
 
 class Mem {
 	public static $conf = array();
+	public static $pref = false;
 	public static function memprefix() {
-		return Once::exec(__FILE__, function () {
-			$str = md5(__DIR__);
-			$str = substr($str,0,5);
-			return $str;
-		});
+		if (Mem::$pref) return $pref;
+		$str = md5(__DIR__);
+		$str = substr($str,0,5);
+		Mem::$pref = $str;
+		return Mem::$pref;
 	}
 	public static function set($key, $val, $savetofile = false)
 	{
@@ -99,20 +99,28 @@ class Mem {
 			}
 		}
 	}
+	public static $mem = null;
 	public static function &memcache()
 	{
-		
-		return Once::exec('Mem::memcache', function () {
+		if (is_null(Mem::$mem)) {
 			$conf = Mem::$conf;
-			if ($conf['type'] != 'mem') return false;
-			if (!class_exists('Memcache')) return false;
-			if (!$conf['memcache']) return false;
+			if ($conf['type'] != 'mem') {
+				Mem::$mem = false;
+				return Mem::$mem;
+			}
+			if (!class_exists('Memcache')) {
+				Mem::$mem = false;
+				return Mem::$mem;
+			}
+			if (!$conf['memcache']) {
+				Mem::$mem = false;
+				return Mem::$mem;
+			}
 			
-			$infra_mem = new \Memcache();
-			$infra_mem->connect($conf['memcache']['host'], $conf['memcache']['port']) or die('Could not connect');
-
-			return $infra_mem;
-		});
+			Mem::$mem = new \Memcache();
+			Mem::$mem->connect($conf['memcache']['host'], $conf['memcache']['port']) or die('Could not connect');
+		}
+		return Mem::$mem;
 	}
 };
 
