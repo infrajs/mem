@@ -24,7 +24,7 @@ class Mem {
 			$key = Path::encode($key);
 			if (!Path::$conf['fs']) die('Filesystem protected by Path::$conf[fs]=false set it on true');
 			//$v = serialize($val);
-			$v = json_encode($val, JSON_UNESCAPED_UNICODE);
+			$v = json_encode($val, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 			$r = file_put_contents(Mem::$conf['cache'].$key.'.json', $v);
 			if (!$r) {
 				echo '<pre>';
