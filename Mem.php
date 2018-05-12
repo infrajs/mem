@@ -73,8 +73,8 @@ class Mem {
 				echo '<pre>';
 				throw new \Exception('Filesystem protected by Path::$conf[fs]=false set it on true');
 			}
-			if (is_file($dir.$key.'.ser')) {
-				$r = unlink($dir.$key.'.ser');
+			if (is_file($dir.$key.'.json')) {
+				$r = unlink($dir.$key.'.json');
 			} else {
 				$r = true;
 			}
