@@ -8,5 +8,8 @@
 	"require":{
 		"infrajs/ans":"~1",
 		"infrajs/path":"~1"
+	},
+	"require-dev":{
+		"infrajs/rest":"~1"
 	}
 }
