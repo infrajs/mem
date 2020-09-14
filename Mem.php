@@ -21,10 +21,11 @@ class Mem {
 			if (!$r) error_log('Слишком большой объём данных для хранения в memcache '.$key);
 		} else {
 			$conf = static::$conf;
-			$key = Path::encode($key);
+			//$key = Path::encode($key);
+			$key = md5($key);
 			if (!Path::$conf['fs']) die('Filesystem protected by Path::$conf[fs]=false set it on true');
 			//$v = serialize($val);
-			$v = json_encode($val, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+			$v = json_encode($val, JSON_INVALID_UTF8_SUBSTITUTE | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 			$r = file_put_contents(Mem::$conf['cache'].$key.'.json', $v);
 			if (!$r) {
 				echo '<pre>';
@@ -40,7 +41,8 @@ class Mem {
 			$r = $mem->get(static::memprefix().$key);
 		} else {
 			$conf = static::$conf;
-			$key = Path::encode($key);
+			//$key = Path::encode($key);
+			$key = md5($key);
 
 			$dir = Path::theme($conf['cache']);
 			if ($dir && is_file($dir.$key.'.json')) {
@@ -62,7 +64,8 @@ class Mem {
 			$r = $mem->delete(static::memprefix().$key);
 		} else {
 			$conf = static::$conf;
-			$key = Path::encode($key);
+			//$key = Path::encode($key);
+			$key = md5($key);
 			$dir = Path::theme($conf['cache']);
 			if (!$dir) {
 				return;
